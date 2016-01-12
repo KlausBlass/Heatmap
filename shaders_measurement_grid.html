@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>KBB Measurement Map</title>
+<meta charset="utf-8">
+<meta content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
+<style>
+    body { margin: 0; }
+</style>
+<!--script src="http://scenejs.org/api/latest/scenejs.min.js"></script-->
+<script src="./scenejs.min.js"></script>
+</head>
+<body onload="setUp()">
+<script>
+
+/********************************************************************/
+/*	KBB:	D:/SceneJS Docs/Shaders/shaders_template.html		*/
+/********************************************************************/
+
+function setUp() {
+
+    // Point SceneJS to the bundled plugins
+    SceneJS.setConfigs({
+//        pluginPath: "http://scenejs.org/api/latest/plugins"
+			pluginPath:"./plugins42"
+    });
+
+/*	simple test case 3x5 grid
+	var N_geometry1 =
+		{
+			type:"geometry/kbb_measurementGrid",
+			id: "geometry1",
+			width: 2,
+			height: 2,
+			widthSegments: 4,
+			heightSegments: 2
+		};
+	
+	var maxMeasurement;
+	var measurement = new Array(3);
+	for (var i=0; i<measurement.length; i++){
+		measurement[i] = new Array(3);
+	}
+	
+	measurement[0][0] = 30;
+	measurement[0][1] = 15;
+	measurement[0][2] = 05;
+	measurement[0][3] = 05;
+	measurement[0][4] = 05;
+	measurement[1][0] = 40;
+	measurement[1][1] = 20;
+	measurement[1][2] = 35;
+	measurement[1][3] = 05;
+	measurement[1][4] = 05;
+	measurement[2][0] = 50;
+	measurement[2][1] = 35;
+	measurement[2][2] = 20;
+	measurement[2][3] = 05;
+	measurement[2][4] = 05;
+*/	
+	
+
+
+/*	simple test case 3x6 grid
+*/	
+	
+	
+	var N_geometry1 =
+		{
+			type:"geometry/kbb_measurementGrid",
+			id: "geometry1",
+			width: 2,
+			height: 2,
+			widthSegments: 5,
+			heightSegments: 2
+		};
+
+	var maxMeasurement;
+	var measurement = new Array(3);
+	for (var i=0; i<measurement.length; i++){
+		measurement[i] = new Array(4);
+	}
+	
+	measurement[0][0] = 30;
+	measurement[0][1] = 15;
+	measurement[0][2] = 05;
+	measurement[0][3] = 05;
+	measurement[0][4] = 05;
+	measurement[1][0] = 40;
+	measurement[1][1] = 20;
+	measurement[1][2] = 35;
+	measurement[1][3] = 05;
+	measurement[1][4] = 05;
+	measurement[2][0] = 50;
+	measurement[2][1] = 35;
+	measurement[2][2] = 20;
+	measurement[2][3] = 05;
+	measurement[2][4] = 05;
+
+	measurement[0][5] = 50;
+	measurement[1][5] = 50;
+	measurement[2][5] = 50;
+	
+	// flatten measurement to a single array:
+	var zValues = measurement.reduce(function(a, b) {
+		return a.concat(b);
+	});
+	
+	N_geometry1.zValues = zValues;
+	
+	var N_shader1 = {
+		// Custom shader
+		// interpret z-coordinates as color indicators and set to 0.
+		type: "shader",
+		shaders: [
+			{
+				stage: "vertex",
+				code: [
+					"attribute vec3 SCENEJS_aVertex;",
+					"attribute vec4 aVertexColor;",
+					"varying vec3 outColor;",
+					"uniform float maxMeasurement;",
+					"varying float max;",
+					"void main () {",
+					"	 float measurement;",
+					"	 measurement = SCENEJS_aVertex.z;",
+					"    gl_Position = vec4(SCENEJS_aVertex.x, SCENEJS_aVertex.y, 0, 1.0);",
+					"	 outColor = vec3((measurement/maxMeasurement),0.0,1.0-(measurement/maxMeasurement));",
+					"	 max = maxMeasurement;",
+					"}"
+					]
+			},
+			{
+				stage: "fragment",
+				code: [
+					"precision mediump float;",
+					"varying vec3 outColor;",
+					"uniform float cutoff;",
+					"varying float max;",
+
+					"void main( void ) {",
+					// color cutoff at red=cutoff/maxMeasurement => yellow
+					"gl_FragColor = vec4(outColor.r>cutoff/max ? vec3(1,1,0) : outColor, 1.0);",
+					"}"
+				]
+			}
+		],
+		params: {
+			// color cutoff at red=30/50 (30°C) => yellow (1.0 -> no highlighting, 0 -> everything highlighted)
+			maxMeasurement: 50.,
+			cutoff: 33.
+		},
+		nodes: [ N_geometry1 ]
+	};
+			
+    var scene = SceneJS.createScene({
+			type: "scene",
+			canvasId: "canvas1",
+			nodes: [N_shader1]
+    });
+}	
+
+</script>
+<div style="height: 100%; width: 100%; padding: 0px; margin: 0px; left: 0px; top: 0px; position: absolute;">
+	<canvas id="canvas1" style="width: 100%; height: 100%; margin: 0; padding: 0; position: absolute; display: block;" ></canvas>
+</div>
+<div style="position: absolute; width: 200px; right: 10px; top: 0px; padding: 10px; z-index: 10000;"></div>
+</body>
+</html>
