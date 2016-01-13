@@ -1,3 +1,0 @@
-				Heatmap Example
-				
-				
