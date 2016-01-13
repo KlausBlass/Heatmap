@@ -7,8 +7,8 @@
 <style>
     body { margin: 0; }
 </style>
-<!--script src="http://scenejs.org/api/latest/scenejs.min.js"></script-->
-<script src="./scenejs.min.js"></script>
+<script src="http://scenejs.org/api/latest/scenejs.min.js"></script>
+<!--script src="./scenejs.min.js"></script-->
 </head>
 <body onload="setUp()">
 <script>
@@ -22,10 +22,11 @@ function setUp() {
     // Point SceneJS to the bundled plugins
     SceneJS.setConfigs({
 //        pluginPath: "http://scenejs.org/api/latest/plugins"
-			pluginPath:"./plugins42"
+			pluginPath:"./plugins"
     });
 
 /*	simple test case 3x5 grid
+*/
 	var N_geometry1 =
 		{
 			type:"geometry/kbb_measurementGrid",
@@ -57,12 +58,12 @@ function setUp() {
 	measurement[2][2] = 20;
 	measurement[2][3] = 05;
 	measurement[2][4] = 05;
-*/	
+
 	
 
 
 /*	simple test case 3x6 grid
-*/	
+	
 	
 	
 	var N_geometry1 =
@@ -101,6 +102,8 @@ function setUp() {
 	measurement[1][5] = 50;
 	measurement[2][5] = 50;
 	
+*/
+
 	// flatten measurement to a single array:
 	var zValues = measurement.reduce(function(a, b) {
 		return a.concat(b);
