@@ -10,4 +10,4 @@ measurement points which it passes to a fragment shader for interpolation.
 
 WebGL is accessed through [SceneJS](http://scenejs.org/ "").
 
-A detailed description can be found in [my blog](https://blassklaus.wordpress.com/ "").
+A detailed description can be found in [my blog](https://blassklaus.wordpress.com/2016/01/13/a-heatmap-on-the-shader/ "").
